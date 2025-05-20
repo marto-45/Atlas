@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Proyectos;
 use Illuminate\Http\Request;
-use Illuminate\Http\Support\Fecades\DB;
+use Illuminate\Support\Facades\DB;
+
 
 class ProyectosController extends Controller
 {
@@ -15,9 +16,9 @@ class ProyectosController extends Controller
      */
     public function index()
     {
-        echo("hiola");
+        
         $proyectos= DB::table("proyectos")->get();
-        return view ("proyects/index", ["proyectos" =>$proyectos]);
+        return view ("proJects/index", ["proyectos" =>$proyectos]);
     }
 
     /**
