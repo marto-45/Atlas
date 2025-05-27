@@ -67,21 +67,28 @@
             </div>
             <div class="col-9">
                 <p class="fs-1">Actualización de Proyectos</p>
-                <form action="{{route('project.update', $proyecto->id)}}" method="post">
+                <form action="{{ route('project.update', $proyecto->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+
+                    {{-- ID solo visible, no editable --}}
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="inputGroup-sizing-default">Id</span>
-                        <input type="text" name="id" id="id" class="form-control" value="{{$proyecto->id}}" arial-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
+                        <input type="text" class="form-control" value="{{ $proyecto->id }}" readonly>
                     </div>
+
+                    {{-- Campo Título --}}
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="inputGroup-sizing-default">Título</span>
-                        <input type="text" name="titulo" id="titulo" value="{{$proyecto->titulo}}" class="form-control" arial-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        <input type="text" name="titulo" id="titulo" value="{{ $proyecto->titulo }}" class="form-control" required>
                     </div>
-                    <div class="input-group">
+
+                    {{-- Campo Descripción --}}
+                    <div class="input-group mb-3">
                         <span class="input-group-text">Descripción</span>
-                        <textarea name="descripcion" id="descripcion" class="form-control" arial-label="With textarea">{{$proyecto->descripcion}}</textarea>
+                        <textarea name="descripcion" id="descripcion" class="form-control" required>{{ $proyecto->descripcion }}</textarea>
                     </div>
+
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
             </div>

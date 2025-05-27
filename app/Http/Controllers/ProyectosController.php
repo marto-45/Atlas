@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Proyectos;
+use App\Models\Proyecto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,6 +39,7 @@ class ProyectosController extends Controller
      */
     public function store(Request $request)
     {
+        
         Proyecto::create($request->all());
         return redirect('project/') -> with('success', 'Proyecto creado satisfactoriamente'); //el project es por la rutas
     }
@@ -73,9 +74,16 @@ class ProyectosController extends Controller
      * @param  \App\Models\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proyecto $proyecto)
+    public function update(Request $request, $id)
     {
-        //
+    $request->validate([
+        'titulo' => 'required|max:255',
+        'descripcion' => 'required'
+    ]);
+
+    $proyecto->update($request->all());
+
+    return redirect('project/')->with('success', 'Proyecto actualizado satisfactoriamente');
     }
 
     /**
@@ -84,8 +92,11 @@ class ProyectosController extends Controller
      * @param  \App\Models\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proyecto $proyecto)
+    public function destroy($id)
     {
-        //
+        $proyecto = Proyecto::findOrFail($id);
+        $proyecto->delete();
+
+        return redirect('project/')->with('success', 'Proyecto eliminado correctamente');
     }
 }
